@@ -8,7 +8,7 @@ class UserController{
 
     async getUsers(req,res){
 
-        const users = await db.query('SELECT * FROM pokemon')
+        const users = await db.query('SELECT * FROM pokemon ORDER BY id')
         res.json(users.rows)
     }
 
