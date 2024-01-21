@@ -6,11 +6,20 @@ class UserController{
         res.json(newPerson.rows[0])
     }
 
-    async getUsers(req,res){
+    async findUsers(req, res) {
+        // Выполнение SQL-запроса для поиска пользователей по имени
+        const users = await db.query('SELECT * FROM pokemon WHERE name ILIKE $1 ORDER BY id', [`%${req.query.name || ''}%`]);
 
+        // Отправка результатов поиска клиенту
+        res.json(users.rows);
+    }
+
+    async getUsers(req,res){
         const users = await db.query('SELECT * FROM pokemon ORDER BY id')
         res.json(users.rows)
     }
+
+
 
     async GetOneUser(req,res){
         const id = req.params.id
